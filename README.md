@@ -57,20 +57,24 @@ sh get-docker.sh
 **创建白名单镜像：**
 
  ```bash
-docker run -d \
+docker run -dit \
+--net docker-br0 \
+--ip 172.18.0.2 \
 --name mtproxy \
 --restart=always \
 -e domain="cloudflare.com" \
 -p 8080:80 \
 -p 8443:443 \
-ellermister/mtproxy
+lhpmain/mtproxy
  ```
 
 **镜像默认开启了 IP 段白名单**  
 如果你不需要可以配置 `ip_white_list="OFF"` 取消：
 
 ```bash
-docker run -d \
+docker run -dit \
+--net docker-br0 \
+--ip 172.18.0.2 \
 --name mtproxy \
 --restart=always \
 -e domain="cloudflare.com" \
@@ -78,7 +82,7 @@ docker run -d \
 -e ip_white_list="OFF" \
 -p 8080:80 \
 -p 8443:443 \
-ellermister/mtproxy
+lhpmain/mtproxy
 ```
 
 `ip_white_list` 选项:
